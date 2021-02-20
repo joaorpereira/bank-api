@@ -1,0 +1,80 @@
+### ============================ USERS =================================
+
+### GET USERS
+GET http://localhost:3003/users
+Content-Type: application/json
+Authorization: 
+
+### GET USER
+GET http://localhost:3003/users/04c3d924-53b0-42cf-8429-736ab87c12df
+Content-Type: application/json
+Authorization: 
+
+### LOGIN
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+  "email": "joao@email.com",
+  "password": "123456"
+}
+
+### SIGN UP
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+  "name": "Joao Pereira",
+  "password": "123456",
+  "email": "joao@email.com",
+  "cpf": "999.999.999-99",
+  "date_of_birth": "2000-12-08",
+  "is_admin": "NORMAL"
+}
+
+### UPDATE USER
+PUT http://localhost:3003/users/edit
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjZjVlODgyLTkwZWMtNGNmNi1hYzk5LTkyNjY1OGQ0NTQ5OSIsImlzX2FkbWluIjoiTk9STUFMIiwiaWF0IjoxNjEzNDg1NDcyLCJleHAiOjE2MTM1NzE4NzJ9.5JPnmI9VfRf-Ek1XHUURN2_-Z-RvSf8TW17_Zk-wSaQ
+
+{
+  "name": "Joao Paulo Rodrigues Pereira",
+  "password": "12345"
+}
+
+### DELETE USER
+DELETE http://localhost:3003/users/2
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjZjVlODgyLTkwZWMtNGNmNi1hYzk5LTkyNjY1OGQ0NTQ5OSIsImlzX2FkbWluIjoiTk9STUFMIiwiaWF0IjoxNjEzNDg1NDcyLCJleHAiOjE2MTM1NzE4NzJ9.5JPnmI9VfRf-Ek1XHUURN2_-Z-RvSf8TW17_Zk-wSaQ
+
+### ============================ TRANSACTIONS =================================
+
+### GET TRANSACTIONS
+GET http://localhost:3003/transactions?page=1
+Content-Type: application/json
+Authorization: 
+
+### CREATE TRANSACTION
+POST http://localhost:3003/transactions
+Content-Type: application/json
+Authorization: 
+
+{
+  "user_id": "04c3d924-53b0-42cf-8429-736ab87c12df",
+  "value": 3000,
+  "type": "INCOMME",
+  "description": "Salary"
+}
+
+### ============================ ACCOUNTS =================================
+
+### GET ACCOUNTS
+GET http://localhost:3003/accounts
+Content-Type: application/json
+Authorization: 
+
+### GET ACCOUNT
+GET http://localhost:3003/accounts/04c3d924-53b0-42cf-8429-736ab87c12df
+Content-Type: application/json
+Authorization: 
+
