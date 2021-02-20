@@ -24,12 +24,12 @@
 </p>
 
 <p align="center">
- <a href="#-About">About</a> • 
- <a href="#-Technologies">Technologies</a> • 
- <a href="#-How-to-start-the-project">How to start the project</a> • 
-  <a href="#-MySQL database">MySQL database</a> • 
- <a href="#-License">License</a> • 
- <a href="#-Developer">Developer</a>
+ <a href="#about">About</a> • 
+ <a href="#technologies">Technologies</a> • 
+ <a href="#how-to-start-the-project">How to start the project</a> • 
+  <a href="#mysql-database">MySQL database</a> • 
+ <a href="#license">License</a> • 
+ <a href="#developer">Developer</a>
 </p>
 
 ---
