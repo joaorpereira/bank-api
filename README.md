@@ -135,7 +135,8 @@ $ npm run dev
 
 ### License
 
-#### This project is under <a href="https://opensource.org/licenses/MIT">MIT</a> license.
+This project is under <a href="https://opensource.org/licenses/MIT">MIT</a> license
+
 ---
 
 ### Developer
