@@ -1,18 +1,14 @@
-import connection from '../database/database'
+import DataBase from '../database/DataBase'
 import { Transaction, Types } from '../models/TransactionModel'
 
-class TransactionsDatabase {
-  tableName: string
-
-  constructor(table: string) {
-    this.tableName = table
-  }
+class TransactionsDatabase extends DataBase {
+  private tableName: string = 'transactions'
 
   async getTransactions(page: Number): Promise<Transaction[]> {
     try {
       const resultPage: number = 5
       const offset: number = resultPage * ((page as number) - 1)
-      const response = await connection.raw(
+      const response = await this.connection.raw(
         `SELECT * FROM ${this.tableName} LIMIT ${resultPage} OFFSET ${offset};`
       )
       return response[0]
@@ -29,7 +25,7 @@ class TransactionsDatabase {
     description: string
   ): Promise<void> {
     try {
-      await connection.raw(`
+      await this.connection.raw(`
         INSERT INTO ${this.tableName} (id, user_id, value, type, description) 
         VALUES ( 
           "${id}", 
@@ -46,7 +42,7 @@ class TransactionsDatabase {
 
   async deleteTransaction(user_id: string): Promise<void> {
     try {
-      await connection.raw(
+      await this.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
     } catch (error) {
@@ -55,4 +51,4 @@ class TransactionsDatabase {
   }
 }
 
-export default new TransactionsDatabase('transactions')
+export default new TransactionsDatabase()

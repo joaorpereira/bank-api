@@ -1,9 +1,9 @@
 import HashManager from '../middlewares/generateHash'
-import UserDatabase from '../data/usersData'
+import UserDatabase from '../data/UsersData'
 import GenerateId from '../middlewares/generateID'
 import GenerateAuthToken from '../middlewares/generateToken'
-import AccountsDatabase from '../data/accountsData'
-import TransactionsDatabase from '../data/transactionsData'
+import AccountsDatabase from '../data/AccountsDatabase'
+import TransactionsDatabase from '../data/TransactionsDatabase'
 import { User, USER_ROLE } from '../models/UserModel'
 import { AuthToken } from '../models/TokenModal'
 class UserView {
