@@ -2,7 +2,7 @@ import connection from '../database/database'
 import { Account } from '../models/AccountModel'
 import generateId from '../middlewares/generateID'
 
-export async function databaseGetAccounts(): Promise<Account[]> {
+export async function databaseAccounts(): Promise<Account[]> {
   try {
     const response = await connection.raw(`SELECT * FROM accounts;`)
     return response[0]
