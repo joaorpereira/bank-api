@@ -1,12 +1,11 @@
 import DataBase from '../database/DataBase'
 import { User, USER_ROLE } from '../models/UserModel'
-
 class UserDatabase extends DataBase {
   private tableName: string = 'users'
 
   async getUsers(): Promise<User[]> {
     try {
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName};`
       )
       return response[0]
@@ -17,7 +16,7 @@ class UserDatabase extends DataBase {
 
   async getUserByID(id: string): Promise<User> {
     try {
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE id="${id}"`
       )
       return response[0][0]
@@ -28,7 +27,7 @@ class UserDatabase extends DataBase {
 
   async getUserByEmail(email: string): Promise<User> {
     try {
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE email="${email}"`
       )
       return response[0][0]
@@ -47,7 +46,7 @@ class UserDatabase extends DataBase {
     is_admin: USER_ROLE
   ): Promise<void> {
     try {
-      await this.connection.raw(`
+      await DataBase.connection.raw(`
       INSERT INTO ${this.tableName} (id, name, password, email, cpf, date_of_birth, is_admin) 
       VALUES ( 
         "${id}", 
@@ -66,7 +65,7 @@ class UserDatabase extends DataBase {
 
   async deletedUser(id: string): Promise<void> {
     try {
-      await this.connection.raw(
+      await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE id="${id}";`
       )
     } catch (error) {
@@ -76,7 +75,7 @@ class UserDatabase extends DataBase {
 
   async updatedUser(id: string, name: string, password: string): Promise<void> {
     try {
-      await this.connection.raw(
+      await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET name="${name}", password="${password}" WHERE id="${id}";`
       )
     } catch (error) {

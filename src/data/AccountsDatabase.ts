@@ -1,13 +1,12 @@
 import { Account } from '../models/AccountModel'
 import GenerateId from '../middlewares/generateID'
 import DataBase from '../database/DataBase'
-
 class AccountsDatabase extends DataBase {
   private tableName: string = 'accounts'
 
   async getAccounts(): Promise<Account[]> {
     try {
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName};`
       )
       return response[0]
@@ -18,7 +17,7 @@ class AccountsDatabase extends DataBase {
 
   async getAccount(user_id: string): Promise<Account> {
     try {
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT user_id, user_name, balance FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
       return response[0][0]
@@ -34,7 +33,7 @@ class AccountsDatabase extends DataBase {
   ): Promise<void> {
     try {
       const id: string = GenerateId.generateId()
-      await this.connection.raw(`
+      await DataBase.connection.raw(`
         INSERT INTO ${this.tableName} (id, user_id, user_name, balance) 
         VALUES ( 
           "${id}", 
@@ -50,7 +49,7 @@ class AccountsDatabase extends DataBase {
 
   async updateAccount(user_id: string, balance: number): Promise<void> {
     try {
-      await this.connection.raw(
+      await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET balance=${balance} WHERE user_id="${user_id}";`
       )
     } catch (error) {
@@ -60,7 +59,7 @@ class AccountsDatabase extends DataBase {
 
   async deleteAccount(user_id: string): Promise<void> {
     try {
-      await this.connection.raw(
+      await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
     } catch (error) {

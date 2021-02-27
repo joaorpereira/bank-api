@@ -1,7 +1,7 @@
 import knex from 'knex'
 
 export default class DataBase {
-  protected connection = knex({
+  protected static connection = knex({
     client: 'mysql',
     connection: {
       host: 'localhost',

@@ -3,7 +3,7 @@ import DataBase from '../../database/DataBase'
 class UsersTable extends DataBase {
   async create(): Promise<void> {
     try {
-      await this.connection.raw(`
+      await DataBase.connection.raw(`
               CREATE TABLE users(
                   id VARCHAR(255) PRIMARY KEY,
                   name VARCHAR(255) NOT NULL,

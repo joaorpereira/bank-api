@@ -1,6 +1,5 @@
 import DataBase from '../database/DataBase'
 import { Transaction, Types } from '../models/TransactionModel'
-
 class TransactionsDatabase extends DataBase {
   private tableName: string = 'transactions'
 
@@ -8,7 +7,7 @@ class TransactionsDatabase extends DataBase {
     try {
       const resultPage: number = 5
       const offset: number = resultPage * ((page as number) - 1)
-      const response = await this.connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} LIMIT ${resultPage} OFFSET ${offset};`
       )
       return response[0]
@@ -25,7 +24,7 @@ class TransactionsDatabase extends DataBase {
     description: string
   ): Promise<void> {
     try {
-      await this.connection.raw(`
+      await DataBase.connection.raw(`
         INSERT INTO ${this.tableName} (id, user_id, value, type, description) 
         VALUES ( 
           "${id}", 
@@ -42,7 +41,7 @@ class TransactionsDatabase extends DataBase {
 
   async deleteTransaction(user_id: string): Promise<void> {
     try {
-      await this.connection.raw(
+      await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
     } catch (error) {
