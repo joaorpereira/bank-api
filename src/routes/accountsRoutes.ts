@@ -1,9 +1,9 @@
 import express from 'express'
-import { getAccounts , getAccount } from '../controllers/AccountController'
+import accountController from '../controllers/AccountController'
 
 const router = express.Router()
 
-router.get('/', getAccounts)
-router.get('/:id', getAccount)
+router.get('/', accountController.getAccounts)
+router.get('/:id', accountController.getAccount)
 
 export default router

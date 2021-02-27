@@ -1,21 +1,18 @@
 import * as jwt from 'jsonwebtoken'
-import { USER_ROLE } from '../models/UserModel'
+import { AuthToken } from '../models/TokenModal'
+class GenerateAuthToken {
+  public generateToken(payload: AuthToken): string {
+    const newToken = jwt.sign(payload, process.env.JWT_KEY as string, {
+      expiresIn: '24h',
+    })
+    return newToken
+  }
 
-export type AuthToken = {
-  id: string
-  is_admin: USER_ROLE
+  public getTokenData(token: string): AuthToken {
+    const newToken = token.split(' ')[1]
+    const tokenData = jwt.verify(newToken, process.env.JWT_KEY as string)
+    return tokenData as AuthToken
+  }
 }
 
-function generateToken(payload: AuthToken): string {
-  const newToken = jwt.sign(payload, process.env.JWT_KEY as string, {
-    expiresIn: '24h',
-  })
-  return newToken
-}
-
-function getTokenData(token: string): AuthToken {
-  const tokenData = jwt.verify(token, process.env.JWT_KEY as string)
-  return tokenData as AuthToken
-}
-
-export { generateToken, getTokenData }
+export default new GenerateAuthToken()

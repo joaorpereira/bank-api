@@ -1,7 +1,7 @@
-import { createUsersTable } from './data/createData/createUsersTable'
-import { createTransactionsTable } from './data/createData/createTransactionsTable'
-import { createAccountsTable } from './data/createData/createAccountsTable'
+import usersTable from './data/createTables/usersTable'
+import transactionsTable from './data/createTables/transactionsTable'
+import accountsTable from './data/createTables/accountsTable'
 
-createUsersTable()
-createTransactionsTable()
-createAccountsTable()
+usersTable.create()
+transactionsTable.create()
+accountsTable.create()

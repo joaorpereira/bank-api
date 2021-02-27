@@ -1,12 +1,9 @@
 import express from 'express'
-import {
-  createTransaction,
-  getTransactions,
-} from '../controllers/TransactionsController'
+import transactionsController from '../controllers/TransactionsController'
 
 const router = express.Router()
 
-router.get('/', getTransactions)
-router.post('/', createTransaction)
+router.get('/', transactionsController.getTransactions)
+router.post('/', transactionsController.createTransaction)
 
 export default router

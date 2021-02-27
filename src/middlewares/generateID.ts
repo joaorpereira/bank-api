@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
-
-export default function generateId() : string{
+class GenerateId {
+  public generateId(): string {
     return uuidv4()
+  }
 }
+
+export default new GenerateId()
