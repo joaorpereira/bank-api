@@ -1,4 +1,4 @@
-<h1 align="left">
+<h1 align="center">
     Bank API
 </h1>
 
@@ -24,12 +24,12 @@
 </p>
 
 <p align="center">
- <a href="#-About">About</a> • 
- <a href="#-Technologies">Technologies</a> • 
- <a href="#-How-to-start-the-project">How to start the project</a> • 
-  <a href="#-MySQL database">MySQL database</a> • 
- <a href="#-License">License</a> • 
- <a href="#-Developer">Developer</a>
+ <a href="#about">About</a> • 
+ <a href="#technologies">Technologies</a> • 
+ <a href="#how-to-start-the-project">How to start the project</a> • 
+  <a href="#mysql-database">MySQL database</a> • 
+ <a href="#license">License</a> • 
+ <a href="#developer">Developer</a>
 </p>
 
 ---
@@ -58,23 +58,28 @@ The project **Bank API** erwe made to start my journey learning backend using **
 
 ### How to start the project
 
+##### Clone repository:
 ```bash
-#->Terminal:
-
-# Clone repository:
-$ git clone https://github.com/abner-starkasty/restaurante-padre-cicero
-
-# Get inside folder:
--> $ cd bank-api
-
-# Install dependencies
+$ git clone https://github.com/joaorpereira/bank-api.git
+```
+##### Get inside folder:
+```bash
+$ cd bank-api
+```
+##### Install dependencies:
+```bash
 $ npm install
-
-# Create MySQL database 
+```
+##### Create MySQL database:
+```bash
 $ create database as bank_database at MySQL 
-
-# Create database connection
-const connection = knex({
+```
+##### Get inside folder:
+```bash
+$ create database as bank_database at MySQL 
+```
+##### Create database connection:
+```bash
   client: 'mysql',
   connection: {
     host: proccess.env.HOST,
@@ -83,22 +88,23 @@ const connection = knex({
     password: proccess.env.DB_PASSWORD,
     database: proccess.env.DB_DATABASE,
   },
-})
-
-# Create MySQL tables
-$ npm create-tables
-
-# Start project
-$ npm run dev
-
-# The endpoints of this API are at the file .rest in this repository
 ```
+##### Create MySQL tables:
+```bash
+$ npm create-tables
+```
+##### Start project:
+```bash
+$ npm run dev
+```
+##### The endpoints of this API are at the file .rest in this repository
+
 ---
 
 ### MySQL database
 
+##### Users Table
 ```bash
-# Users Table
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -107,8 +113,8 @@ $ npm run dev
     date_of_birth DATETIME NOT NULL,
     is_admin ENUM('NORMAL', 'ADMIN') DEFAULT 'NORMAL'
 ```
+##### Transactions Table
 ```bash
-# Transactions Table
     id VARCHAR(255) PRIMARY KEY,
     user_id VARCHAR(255) NULL,
     value FLOAT NOT NULL,
@@ -117,8 +123,8 @@ $ npm run dev
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 ```
+##### Accounts Table
 ```bash
-# Accounts Table
     id VARCHAR(255) PRIMARY KEY,
     user_id VARCHAR(255) NULL,
     user_name VARCHAR(255) NOT NULL REFERENCES users(name),                
@@ -129,7 +135,8 @@ $ npm run dev
 
 ### License
 
-#### This project is under <a href="https://opensource.org/licenses/MIT">MIT</a> license.
+This project is under <a href="https://opensource.org/licenses/MIT">MIT</a> license
+
 ---
 
 ### Developer
