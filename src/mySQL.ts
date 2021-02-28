@@ -1,7 +1,7 @@
-import usersTable from './data/createTables/usersTable'
-import transactionsTable from './data/createTables/transactionsTable'
-import accountsTable from './data/createTables/accountsTable'
+import UsersTable from './data/createTables/UsersTable'
+import TransactionsTable from './data/createTables/TransactionsTable'
+import AccountsTable from './data/createTables/AccountsTable'
 
-usersTable.create()
-transactionsTable.create()
-accountsTable.create()
+UsersTable.create()
+TransactionsTable.create()
+AccountsTable.create()

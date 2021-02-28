@@ -1,5 +1,5 @@
 // import { databaseAccounts, databaseGetAccount } from '../data/accountsData'
-import AccountsDatabase from '../data/accountsData'
+import AccountsDatabase from '../data/AccountsDatabase'
 import GenerateAuthToken from '../middlewares/generateToken'
 import { Account } from '../models/AccountModel'
 import { AuthToken } from '../models/TokenModal'

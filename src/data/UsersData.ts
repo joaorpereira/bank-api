@@ -1,14 +1,13 @@
-import connection from '../database/database'
+import DataBase from '../database/DataBase'
 import { User, USER_ROLE } from '../models/UserModel'
-class UserDatabase {
-  tableName: string
+class UserDatabase extends DataBase {
+  private tableName: string = 'users'
 
-  constructor(table: string) {
-    this.tableName = table
-  }
   async getUsers(): Promise<User[]> {
     try {
-      const response = await connection.raw(`SELECT * FROM ${this.tableName};`)
+      const response = await DataBase.connection.raw(
+        `SELECT * FROM ${this.tableName};`
+      )
       return response[0]
     } catch (error) {
       throw new Error(error.sqlMessage || error.message)
@@ -17,7 +16,7 @@ class UserDatabase {
 
   async getUserByID(id: string): Promise<User> {
     try {
-      const response = await connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE id="${id}"`
       )
       return response[0][0]
@@ -28,7 +27,7 @@ class UserDatabase {
 
   async getUserByEmail(email: string): Promise<User> {
     try {
-      const response = await connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE email="${email}"`
       )
       return response[0][0]
@@ -47,7 +46,7 @@ class UserDatabase {
     is_admin: USER_ROLE
   ): Promise<void> {
     try {
-      await connection.raw(`
+      await DataBase.connection.raw(`
       INSERT INTO ${this.tableName} (id, name, password, email, cpf, date_of_birth, is_admin) 
       VALUES ( 
         "${id}", 
@@ -66,7 +65,9 @@ class UserDatabase {
 
   async deletedUser(id: string): Promise<void> {
     try {
-      await connection.raw(`DELETE FROM ${this.tableName} WHERE id="${id}";`)
+      await DataBase.connection.raw(
+        `DELETE FROM ${this.tableName} WHERE id="${id}";`
+      )
     } catch (error) {
       throw new Error(error.sqlMessage || error.message)
     }
@@ -74,7 +75,7 @@ class UserDatabase {
 
   async updatedUser(id: string, name: string, password: string): Promise<void> {
     try {
-      await connection.raw(
+      await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET name="${name}", password="${password}" WHERE id="${id}";`
       )
     } catch (error) {
@@ -83,4 +84,4 @@ class UserDatabase {
   }
 }
 
-export default new UserDatabase('users')
+export default new UserDatabase()

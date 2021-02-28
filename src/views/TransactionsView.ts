@@ -1,6 +1,6 @@
 import HashManager from '../middlewares/generateID'
-import AccountsDatabase from '../data/accountsData'
-import TransactionsDatabase from '../data/transactionsData'
+import AccountsDatabase from '../data/AccountsDatabase'
+import TransactionsDatabase from '../data/TransactionsDatabase'
 import GenerateAuthToken from '../middlewares/generateToken'
 import { Transaction, Types } from '../models/TransactionModel'
 import { AuthToken } from '../models/TokenModal'

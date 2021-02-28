@@ -1,17 +1,14 @@
-import connection from '../database/database'
 import { Account } from '../models/AccountModel'
 import GenerateId from '../middlewares/generateID'
-
-class AccountsDatabase {
-  tableName: string
-
-  constructor(table: string) {
-    this.tableName = table
-  }
+import DataBase from '../database/DataBase'
+class AccountsDatabase extends DataBase {
+  private tableName: string = 'accounts'
 
   async getAccounts(): Promise<Account[]> {
     try {
-      const response = await connection.raw(`SELECT * FROM ${this.tableName};`)
+      const response = await DataBase.connection.raw(
+        `SELECT * FROM ${this.tableName};`
+      )
       return response[0]
     } catch (error) {
       throw new Error(error.sqlMessage || error.message)
@@ -20,7 +17,7 @@ class AccountsDatabase {
 
   async getAccount(user_id: string): Promise<Account> {
     try {
-      const response = await connection.raw(
+      const response = await DataBase.connection.raw(
         `SELECT user_id, user_name, balance FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
       return response[0][0]
@@ -36,7 +33,7 @@ class AccountsDatabase {
   ): Promise<void> {
     try {
       const id: string = GenerateId.generateId()
-      await connection.raw(`
+      await DataBase.connection.raw(`
         INSERT INTO ${this.tableName} (id, user_id, user_name, balance) 
         VALUES ( 
           "${id}", 
@@ -52,7 +49,7 @@ class AccountsDatabase {
 
   async updateAccount(user_id: string, balance: number): Promise<void> {
     try {
-      await connection.raw(
+      await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET balance=${balance} WHERE user_id="${user_id}";`
       )
     } catch (error) {
@@ -62,7 +59,7 @@ class AccountsDatabase {
 
   async deleteAccount(user_id: string): Promise<void> {
     try {
-      await connection.raw(
+      await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
     } catch (error) {
@@ -71,4 +68,4 @@ class AccountsDatabase {
   }
 }
 
-export default new AccountsDatabase('accounts')
+export default new AccountsDatabase()

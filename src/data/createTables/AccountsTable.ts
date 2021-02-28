@@ -1,9 +1,8 @@
-import connection from '../../database/database'
-
-class AccountsTable {
+import DataBase from '../../database/DataBase'
+class AccountsTable extends DataBase {
   async create(): Promise<void> {
     try {
-      await connection.raw(`
+      await DataBase.connection.raw(`
               CREATE TABLE accounts(
                   id VARCHAR(255) PRIMARY KEY,
                   user_id VARCHAR(255) NULL,
