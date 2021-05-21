@@ -35,7 +35,7 @@
 ---
 ### About
 
-The project **Bank API** erwe made to start my journey learning backend using **NodeJS** and **Typescript**.
+The project **Bank API** were made to start my journey learning backend using **NodeJS** and **Typescript**.
 
 ---
 
