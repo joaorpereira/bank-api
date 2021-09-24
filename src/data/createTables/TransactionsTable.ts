@@ -1,4 +1,4 @@
-import DataBase from '../../database/DataBase'
+import DataBase from "../../database/DataBase";
 
 class TransactionsTable extends DataBase {
   async create(): Promise<void> {
@@ -13,12 +13,12 @@ class TransactionsTable extends DataBase {
                   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
               );
-          `)
-      console.log('Transactions table created')
+          `);
+      console.log("Transactions table created");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 }
 
-export default new TransactionsTable()
+export default new TransactionsTable();

@@ -1,14 +1,14 @@
-import knex from 'knex'
+import knex from "knex";
 
 export default class DataBase {
   protected static connection = knex({
-    client: 'mysql',
+    client: "mysql",
     connection: {
-      host: 'localhost',
+      host: "localhost",
       port: 3306,
-      user: 'root',
-      password: 'password',
-      database: 'bank_database',
+      user: "root",
+      password: "password",
+      database: "bank_database",
     },
-  })
+  });
 }

@@ -1,4 +1,4 @@
-import DataBase from '../../database/DataBase'
+import DataBase from "../../database/DataBase";
 class AccountsTable extends DataBase {
   async create(): Promise<void> {
     try {
@@ -10,12 +10,12 @@ class AccountsTable extends DataBase {
                   balance FLOAT DEFAULT 0,             
                   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
               );
-          `)
-      console.log('Accounts table created')
+          `);
+      console.log("Accounts table created");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 }
 
-export default new AccountsTable()
+export default new AccountsTable();

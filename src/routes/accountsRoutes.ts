@@ -1,9 +1,9 @@
-import express from 'express'
-import accountController from '../controllers/AccountController'
+import express from "express";
+import accountController from "../controllers/AccountController";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', accountController.getAll)
-router.get('/:id', accountController.get)
+router.get("/", accountController.getAll);
+router.get("/:id", accountController.get);
 
-export default router
+export default router;

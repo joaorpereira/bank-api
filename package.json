@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "clear && echo \"Starting application... \" && tsc && node ./build/index.js",
     "dev": "ts-node-dev ./src/index.ts",
-    "create-table": "ts-node-dev ./src/mySQL.ts"
+    "create-table": "ts-node-dev ./src/mySQL.ts",
+    "prettier": "prettier 'src/**/*.ts'",
+    "prettier:fix": "prettier --write 'src/**/*.ts'"
   },
   "keywords": [
     "knex",
@@ -25,7 +27,15 @@
     "@types/knex": "^0.16.1",
     "@types/morgan": "^1.9.3",
     "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "morgan": "^1.10.0",
+    "prettier": "^2.4.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.5"
   },
@@ -38,5 +48,16 @@
     "knex": "^0.21.17",
     "mysql": "^2.18.1",
     "uuid": "^8.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

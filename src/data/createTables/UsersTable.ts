@@ -1,4 +1,4 @@
-import DataBase from '../../database/DataBase'
+import DataBase from "../../database/DataBase";
 
 class UsersTable extends DataBase {
   async create(): Promise<void> {
@@ -13,12 +13,12 @@ class UsersTable extends DataBase {
                   date_of_birth DATETIME NOT NULL,
                   is_admin ENUM('NORMAL', 'ADMIN') DEFAULT 'NORMAL'
               );
-          `)
-      console.log('Users table created')
+          `);
+      console.log("Users table created");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 }
 
-export default new UsersTable()
+export default new UsersTable();
