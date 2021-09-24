@@ -2,6 +2,7 @@ import express, { Express } from 'express'
 import { AddressInfo } from 'net'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import morgan from 'morgan';
 import usersRoutes from './routes/usersRoutes'
 import accountsRoutes from './routes/accountsRoutes'
 import transactionsRoutes from './routes/transactionsRoutes'
@@ -12,6 +13,7 @@ const app: Express = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(morgan("combined"));
 
 app.use('/users', usersRoutes)
 app.use('/transactions', transactionsRoutes)
