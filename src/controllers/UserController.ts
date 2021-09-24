@@ -63,7 +63,6 @@ class UserController {
     try {
       const token: string = req.headers.authorization as string
       const { name, password } = req.body
-      console.log(token)
       const message = await UserView.update(name, password, token)
       res.status(201).send({ message })
     } catch (error: any) {

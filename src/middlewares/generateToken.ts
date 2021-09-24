@@ -9,6 +9,9 @@ class GenerateAuthToken {
   }
 
   public getTokenData(token: string): AuthToken {
+    if(!token){
+      throw new Error('Invalid token')
+    }
     const newToken = token.split(' ')[1]
     const tokenData = jwt.verify(newToken, process.env.JWT_KEY as string)
     return tokenData as AuthToken

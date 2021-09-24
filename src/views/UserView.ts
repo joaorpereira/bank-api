@@ -120,17 +120,13 @@ class UserView {
       await AccountsDatabase.create(id, name)
       const token = GenerateAuthToken.generateToken({ id, is_admin })
 
-      return token as string
+      return token
     } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async update(
-    name: string,
-    password: string,
-    token: string
-  ): Promise<string> {
+  async update(name: string, password: string, token: string): Promise<string> {
     try {
       const tokenData: AuthToken = GenerateAuthToken.getTokenData(token)
 
