@@ -12,7 +12,7 @@ export type Transaction = {
   created_at: Date
 }
 
-export type inputTransaction = {
+export type InputTransaction = {
   user_id: string
   value: number
   type: Types

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { inputTransaction } from '../models/TransactionModel'
+import { InputTransaction } from '../models/TransactionModel'
 import TransactionsView from '../views/TransactionsView'
 class TransactionsController {
   async getTransactions(req: Request, res: Response): Promise<void> {
@@ -16,7 +16,7 @@ class TransactionsController {
   async createTransaction(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
-      const { user_id, value, type, description }: inputTransaction = req.body
+      const { user_id, value, type, description }: InputTransaction = req.body
       const message = await TransactionsView.createTransaction(
         user_id,
         value,
