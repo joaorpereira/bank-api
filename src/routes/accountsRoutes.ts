@@ -3,7 +3,7 @@ import accountController from '../controllers/AccountController'
 
 const router = express.Router()
 
-router.get('/', accountController.getAccounts)
-router.get('/:id', accountController.getAccount)
+router.get('/', accountController.getAll)
+router.get('/:id', accountController.get)
 
 export default router

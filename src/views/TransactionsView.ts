@@ -6,7 +6,7 @@ import { Transaction, Types } from '../models/TransactionModel'
 import { AuthToken } from '../models/TokenModal'
 
 class TransactionsView {
-  async getTransactions(token: string, page: number): Promise<Transaction[]> {
+  async getAll(token: string, page: number): Promise<Transaction[]> {
     try {
       const tokenData: AuthToken = GenerateAuthToken.getTokenData(token)
 
@@ -19,7 +19,7 @@ class TransactionsView {
         throw new Error(message)
       }
 
-      const transactions: Transaction[] = await TransactionsDatabase.getTransactions(
+      const transactions: Transaction[] = await TransactionsDatabase.get(
         page
       )
       if (!transactions.length) {
@@ -28,12 +28,12 @@ class TransactionsView {
       }
 
       return transactions
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async createTransaction(
+  async create(
     user_id: string,
     value: number,
     type: string,
@@ -58,7 +58,7 @@ class TransactionsView {
 
       const id = HashManager.generateId()
 
-      let { balance } = await AccountsDatabase.getAccount(user_id)
+      let { balance } = await AccountsDatabase.get(user_id)
 
       if (type === 'OUTCOME' && balance <= value) {
         throw new Error('Insufficient account balance')
@@ -68,19 +68,19 @@ class TransactionsView {
         balance -= value
       }
 
-      await TransactionsDatabase.createTransaction(
+      await TransactionsDatabase.create(
         id,
         user_id,
         value,
         type as Types,
         description
       )
-      await AccountsDatabase.updateAccount(user_id, balance)
+      await AccountsDatabase.update(user_id, balance)
 
       message = 'Transaction created'
 
       return message
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }

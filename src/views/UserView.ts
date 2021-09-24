@@ -7,7 +7,7 @@ import TransactionsDatabase from '../data/TransactionsDatabase'
 import { User, USER_ROLE } from '../models/UserModel'
 import { AuthToken } from '../models/TokenModal'
 class UserView {
-  async getUsers(token: string): Promise<User[]> {
+  async getAll(token: string): Promise<User[]> {
     let message = 'Users not found'
     let statusCode
 
@@ -20,7 +20,7 @@ class UserView {
         throw new Error(message)
       }
 
-      const users: User[] = await UserDatabase.getUsers()
+      const users: User[] = await UserDatabase.getAll()
 
       if (!users.length) {
         statusCode = 404
@@ -28,12 +28,12 @@ class UserView {
       }
 
       return users
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async getUser(token: string, id: string): Promise<User> {
+  async get(token: string, id: string): Promise<User> {
     let message = 'User not found'
     let statusCode
     try {
@@ -43,19 +43,19 @@ class UserView {
         throw new Error(message)
       }
 
-      const user: User = await UserDatabase.getUserByID(id)
+      const user: User = await UserDatabase.get(id)
       if (!user) {
         statusCode = 404
         throw new Error(message)
       }
 
       return user
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async createUser(email: string, password: string): Promise<string> {
+  async login(email: string, password: string): Promise<string> {
     let message = 'User logged'
     let statusCode
 
@@ -66,7 +66,7 @@ class UserView {
         throw new Error(message)
       }
 
-      const user: User = await UserDatabase.getUserByEmail(email)
+      const user: User = await UserDatabase.getByEmail(email)
       const token: string = GenerateAuthToken.generateToken({
         id: user.id,
         is_admin: user.is_admin,
@@ -90,12 +90,12 @@ class UserView {
       }
 
       return token
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async signUp(
+  async create(
     name: string,
     password: string,
     email: string,
@@ -107,7 +107,7 @@ class UserView {
       const id: string = GenerateId.generateId()
       const hashPassword = await HashManager.hash(password)
 
-      await UserDatabase.signUp(
+      await UserDatabase.create(
         id,
         name,
         hashPassword,
@@ -117,16 +117,16 @@ class UserView {
         is_admin
       )
 
-      await AccountsDatabase.createAccount(id, name)
+      await AccountsDatabase.create(id, name)
       const token = GenerateAuthToken.generateToken({ id, is_admin })
 
       return token as string
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async updateUser(
+  async update(
     name: string,
     password: string,
     token: string
@@ -143,17 +143,15 @@ class UserView {
         throw new Error(message)
       }
 
-      console.log(tokenData)
-
-      await UserDatabase.updatedUser(tokenData.id, name, password)
+      await UserDatabase.update(tokenData.id, name, password)
 
       return message
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async deleteUser(id: string, token: string): Promise<string> {
+  async delete(id: string, token: string): Promise<string> {
     let message = 'User removed'
     let statusCode
 
@@ -165,12 +163,12 @@ class UserView {
         throw new Error(message)
       }
 
-      await AccountsDatabase.deleteAccount(id)
-      await TransactionsDatabase.deleteTransaction(id)
-      await UserDatabase.deletedUser(id)
+      await AccountsDatabase.delete(id)
+      await TransactionsDatabase.delete(id)
+      await UserDatabase.delete(id)
 
       return message
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }

@@ -2,38 +2,38 @@ import { Request, Response } from 'express'
 import { inputUserSignUp, inputUserLogin } from '../models/UserModel'
 import UserView from '../views/UserView'
 class UserController {
-  async getUsers(req: Request, res: Response): Promise<void> {
+  async getAll(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
-      const users = await UserView.getUsers(token)
+      const users = await UserView.getAll(token)
       res.status(200).send(users)
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async getUser(req: Request, res: Response): Promise<void> {
+  async get(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
       const { id } = req.params
-      const user = await UserView.getUser(token, id)
+      const user = await UserView.get(token, id)
       res.status(200).send(user)
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async loginUser(req: Request, res: Response): Promise<void> {
+  async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password }: inputUserLogin = req.body
-      const token = await UserView.createUser(email, password)
+      const token = await UserView.login(email, password)
       res.status(200).send({ token })
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async signUpUser(req: Request, res: Response): Promise<void> {
+  async create(req: Request, res: Response): Promise<void> {
     try {
       const {
         name,
@@ -44,7 +44,7 @@ class UserController {
         is_admin,
       }: inputUserSignUp = req.body
 
-      const token = await UserView.signUp(
+      const token = await UserView.create(
         name,
         password,
         email,
@@ -54,30 +54,30 @@ class UserController {
       )
 
       res.status(201).send({ message: 'User created successfully', token })
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async updateUser(req: Request, res: Response): Promise<void> {
+  async update(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
       const { name, password } = req.body
       console.log(token)
-      const message = await UserView.updateUser(name, password, token)
+      const message = await UserView.update(name, password, token)
       res.status(201).send({ message })
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async deleteUser(req: Request, res: Response): Promise<void> {
+  async delete(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
       const { id } = req.params
-      const message = await UserView.deleteUser(id, token)
+      const message = await UserView.delete(id, token)
       res.status(201).send({ message })
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }

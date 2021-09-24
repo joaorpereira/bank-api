@@ -3,7 +3,7 @@ import transactionsController from '../controllers/TransactionsController'
 
 const router = express.Router()
 
-router.get('/', transactionsController.getTransactions)
-router.post('/', transactionsController.createTransaction)
+router.get('/', transactionsController.getAll)
+router.post('/', transactionsController.create)
 
 export default router

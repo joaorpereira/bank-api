@@ -3,40 +3,40 @@ import { User, USER_ROLE } from '../models/UserModel'
 class UserDatabase extends DataBase {
   private tableName: string = 'users'
 
-  async getUsers(): Promise<User[]> {
+  async getAll(): Promise<User[]> {
     try {
       const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName};`
       )
       return response[0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async getUserByID(id: string): Promise<User> {
+  async get(id: string): Promise<User> {
     try {
       const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE id="${id}"`
       )
       return response[0][0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async getUserByEmail(email: string): Promise<User> {
+  async getByEmail(email: string): Promise<User> {
     try {
       const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName} WHERE email="${email}"`
       )
       return response[0][0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async signUp(
+  async create(
     id: string,
     name: string,
     password: string,
@@ -58,27 +58,27 @@ class UserDatabase extends DataBase {
         "${is_admin}"
       );    
     `)
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async deletedUser(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     try {
       await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE id="${id}";`
       )
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async updatedUser(id: string, name: string, password: string): Promise<void> {
+  async update(id: string, name: string, password: string): Promise<void> {
     try {
       await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET name="${name}", password="${password}" WHERE id="${id}";`
       )
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }

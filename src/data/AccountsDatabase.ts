@@ -4,29 +4,29 @@ import DataBase from '../database/DataBase'
 class AccountsDatabase extends DataBase {
   private tableName: string = 'accounts'
 
-  async getAccounts(): Promise<Account[]> {
+  async getAll(): Promise<Account[]> {
     try {
       const response = await DataBase.connection.raw(
         `SELECT * FROM ${this.tableName};`
       )
       return response[0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async getAccount(user_id: string): Promise<Account> {
+  async get(user_id: string): Promise<Account> {
     try {
       const response = await DataBase.connection.raw(
         `SELECT user_id, user_name, balance FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
       return response[0][0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async createAccount(
+  async create(
     user_id: string,
     user_name: string,
     balance?: number
@@ -42,27 +42,27 @@ class AccountsDatabase extends DataBase {
           ${balance || 0}
         );    
       `)
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async updateAccount(user_id: string, balance: number): Promise<void> {
+  async update(user_id: string, balance: number): Promise<void> {
     try {
       await DataBase.connection.raw(
         `UPDATE ${this.tableName} SET balance=${balance} WHERE user_id="${user_id}";`
       )
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async deleteAccount(user_id: string): Promise<void> {
+  async delete(user_id: string): Promise<void> {
     try {
       await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }

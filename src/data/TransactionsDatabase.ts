@@ -3,7 +3,7 @@ import { Transaction, Types } from '../models/TransactionModel'
 class TransactionsDatabase extends DataBase {
   private tableName: string = 'transactions'
 
-  async getTransactions(page: Number): Promise<Transaction[]> {
+  async get(page: Number): Promise<Transaction[]> {
     try {
       const resultPage: number = 5
       const offset: number = resultPage * ((page as number) - 1)
@@ -11,12 +11,12 @@ class TransactionsDatabase extends DataBase {
         `SELECT * FROM ${this.tableName} LIMIT ${resultPage} OFFSET ${offset};`
       )
       return response[0]
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async createTransaction(
+  async create(
     id: string,
     user_id: string,
     value: number,
@@ -34,17 +34,17 @@ class TransactionsDatabase extends DataBase {
           "${description}"
         );    
       `)
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }
 
-  async deleteTransaction(user_id: string): Promise<void> {
+  async delete(user_id: string): Promise<void> {
     try {
       await DataBase.connection.raw(
         `DELETE FROM ${this.tableName} WHERE user_id="${user_id}";`
       )
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error.sqlMessage || error.message)
     }
   }

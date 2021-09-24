@@ -1,23 +1,23 @@
 import { Request, Response } from 'express'
 import AccountsView from '../views/AccountView'
 class AccountController {
-  async getAccounts(req: Request, res: Response): Promise<void> {
+  async getAll(req: Request, res: Response): Promise<void> {
     try {
       const token: string = req.headers.authorization as string
-      const accounts = await AccountsView.getAccounts(token)
+      const accounts = await AccountsView.getAll(token)
       res.status(200).send(accounts)
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }
 
-  async getAccount(req: Request, res: Response): Promise<any> {
+  async get(req: Request, res: Response): Promise<any> {
     try {
       const token: string = req.headers.authorization as string
       const { id } = req.params
-      const balance = await AccountsView.getAccount(id, token)
+      const balance = await AccountsView.get(id, token)
       res.status(200).send(balance)
-    } catch (error) {
+    } catch (error: any) {
       res.status(400).send(error.message)
     }
   }

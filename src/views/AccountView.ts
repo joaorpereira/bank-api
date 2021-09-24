@@ -5,7 +5,7 @@ import { Account } from '../models/AccountModel'
 import { AuthToken } from '../models/TokenModal'
 
 class AccountsView {
-  async getAccounts(token: string): Promise<Account[]> {
+  async getAll(token: string): Promise<Account[]> {
     let message = 'Accounts not found'
     let statusCode
 
@@ -17,19 +17,19 @@ class AccountsView {
         throw new Error(message)
       }
 
-      const accounts: Account[] = await AccountsDatabase.getAccounts()
+      const accounts: Account[] = await AccountsDatabase.getAll()
       if (!accounts.length) {
         statusCode = 404
         throw new Error(message)
       }
 
       return accounts
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
 
-  async getAccount(id: string, token: string): Promise<Account> {
+  async get(id: string, token: string): Promise<Account> {
     let message = 'Account balance not found'
     let statusCode
 
@@ -39,9 +39,9 @@ class AccountsView {
         message = 'Not authorized'
         throw new Error(message)
       }
-      const balance = await AccountsDatabase.getAccount(id)
+      const balance = await AccountsDatabase.get(id)
       return balance
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }
