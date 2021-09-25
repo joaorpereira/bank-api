@@ -4,6 +4,6 @@ import transactionsController from "../controllers/TransactionsController";
 const router = express.Router();
 
 router.get("/", transactionsController.getAll);
-router.post("/", transactionsController.create);
+router.post("/create", transactionsController.create);
 
 export default router;
