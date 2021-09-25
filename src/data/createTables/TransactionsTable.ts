@@ -15,7 +15,7 @@ class TransactionsTable extends DataBase {
               );
           `);
       console.log("Transactions table created");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
   }

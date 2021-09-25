@@ -12,7 +12,7 @@ class AccountsTable extends DataBase {
               );
           `);
       console.log("Accounts table created");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
   }

@@ -15,7 +15,7 @@ class UsersTable extends DataBase {
               );
           `);
       console.log("Users table created");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
     }
   }

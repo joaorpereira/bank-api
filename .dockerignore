@@ -1,0 +1,9 @@
+node_modules
+Dockerfile
+.git
+.eslintrc
+.prettierrc
+.gitignore
+.dockerignore
+package-lock.json
+Insomnia.json
