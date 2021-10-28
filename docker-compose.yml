@@ -1,0 +1,39 @@
+version: "3"
+services: 
+  app:
+    container_name: app-api
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/app
+      - "/app/node_modules"
+    depends_on:
+      - mysql_server
+    environment:
+      - PORT=${PORT}
+      - BCRPYT_COST=${BCRPYT_COST}
+      - JWT_KEY=${JWT_KEY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_LOCAL_PORT=${MYSQL_LOCAL_PORT}
+
+  mysql_server:
+    container_name: mysql_server
+    image: mysql:5.7.31
+    command: --default-authentication-plugin=mysql_native_password --sql_mode=NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER --explicit_defaults_for_timestamp
+    restart: always
+    ports:
+      - ${MYSQL_LOCAL_PORT}:${MYSQL_LOCAL_PORT}
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ${PWD}/db:/var/lib/mysql
